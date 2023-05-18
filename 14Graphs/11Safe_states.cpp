@@ -1,50 +1,67 @@
 //{ Driver Code Starts
+// Initial Template for C++
+
 #include <bits/stdc++.h>
 using namespace std;
 
 // } Driver Code Ends
+// User function Template for C++
+//////////////////////////////////////------------->>>>using detecting cycle technique///////////////////
 class Solution
 {
 
 private:
-    bool dfs(int node, int vis[], int pathvis[], vector<int> adj[], int V)
+    bool dfs(int node, int vis[], int pathvis[], vector<int> adj[], int check[])
     {
         vis[node] = 1;
         pathvis[node] = 1;
+        check[node] = 0;
+
         for (auto it : adj[node])
         {
             if (!vis[it])
             {
-                if (dfs(it, vis, pathvis, adj, V) == true)
+                if (dfs(it, vis, pathvis, adj, check) == true)
+                {
+                    check[node] = 0;
                     return true;
+                }
             }
 
             else if (vis[it] == 1 and pathvis[it] == 1)
             {
+                check[node] = 0;
                 return true;
             }
         }
+        check[node] = 1;
         pathvis[node] = 0;
         return false;
     }
 
 public:
-    // Function to detect cycle in a directed graph.
-    bool isCyclic(int V, vector<int> adj[])
+    vector<int> eventualSafeNodes(int V, vector<int> adj[])
     {
         // code here
         int vis[V] = {0};
         int pathvis[V] = {0};
+        int check[V] = {0};
+        vector<int> safenodes;
 
         for (int i = 0; i < V; i++)
         {
             if (!vis[i])
             {
-                if (dfs(i, vis, pathvis, adj, V) == true)
-                    return true;
+                dfs(i, vis, pathvis, adj, check);
             }
         }
-        return false;
+
+        for (int i = 0; i < V; i++)
+        {
+            if (check[i] == 1)
+                safenodes.push_back(i);
+        }
+        return safenodes;
     }
 };
 
@@ -52,14 +69,13 @@ public:
 
 int main()
 {
-
     int t;
     cin >> t;
     while (t--)
     {
+
         int V, E;
         cin >> V >> E;
-
         vector<int> adj[V];
 
         for (int i = 0; i < E; i++)
@@ -70,10 +86,13 @@ int main()
         }
 
         Solution obj;
-        cout << obj.isCyclic(V, adj) << "\n";
+        vector<int> safeNodes = obj.eventualSafeNodes(V, adj);
+        for (auto i : safeNodes)
+        {
+            cout << i << " ";
+        }
+        cout << endl;
     }
-
-    return 0;
 }
 
 // } Driver Code Ends
