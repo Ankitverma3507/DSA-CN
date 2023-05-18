@@ -1,0 +1,1 @@
+{"name":"Local: 16zigzag","url":"d:\\college work\\coding ninja dsa\\8BiaryTree\\16zigzag.cpp","tests":[{"id":1674387053850,"input":"5 6 10 2 3 -1 -1 -1 -1 -1 9 -1 -1","output":"5\n10 6\n2 3\n9"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\college work\\coding ninja dsa\\8BiaryTree\\16zigzag.cpp","group":"local","local":true}
