@@ -1,65 +1,69 @@
 //{ Driver Code Starts
+// Initial Template for C++
+
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+// User function Template for C++
+
 class Solution {
   public:
-    // Function to detect cycle in a directed graph.
-    bool isCyclic(int V, vector<int> adj[]) {
+    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
         // code here
-        int indegree[V]={0};
-        
+        vector<int> adjrev[V];
+        int newindegree[V]={0};
         for(int i=0; i<V; i++)
         {
             for(auto it: adj[i])
             {
-                indegree[it]++;
+                adjrev[it].push_back(i);
+                newindegree[i]++;
+                
             }
         }
         
         queue<int> q;
         for(int i=0; i<V; i++)
         {
-            if(indegree[i]==0)
+            if(newindegree[i]==0)
             {
                 q.push(i);
             }
         }
         
-        int cnt=0;
+        vector<int> safenodes;
         while(!q.empty())
         {
             int front= q.front();
             q.pop();
-            cnt++;
-            
-            for(auto it: adj[front])
+            safenodes.push_back(front);
+            for(auto it: adjrev[front])
             {
-                indegree[it]--;
-                
-                if(indegree[it]==0)
+                newindegree[it]--;
+                if(newindegree[it]==0)
                 {
                     q.push(it);
                 }
             }
         }
         
-        if(cnt==V)return false;
-        return true;
+        sort(safenodes.begin(), safenodes.end());
+        return safenodes;
     }
 };
+
 
 //{ Driver Code Starts.
 
 int main() {
-
     int t;
     cin >> t;
     while (t--) {
+
         int V, E;
         cin >> V >> E;
-
         vector<int> adj[V];
 
         for (int i = 0; i < E; i++) {
@@ -69,10 +73,12 @@ int main() {
         }
 
         Solution obj;
-        cout << obj.isCyclic(V, adj) << "\n";
+        vector<int> safeNodes = obj.eventualSafeNodes(V, adj);
+        for (auto i : safeNodes) {
+            cout << i << " ";
+        }
+        cout << endl;
     }
-
-    return 0;
 }
 
 // } Driver Code Ends
