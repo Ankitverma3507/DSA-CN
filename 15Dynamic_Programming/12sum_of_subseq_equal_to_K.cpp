@@ -58,8 +58,8 @@ bool subsetSumToK(int n, int k, vector<int> &arr)
     {
         dp[i][0] = true;
     }
-    if(arr[0]<=k)
-    dp[0][arr[0]] = true;
+    if (arr[0] <= k)
+        dp[0][arr[0]] = true;
 
     for (int ind = 1; ind < n; ind++)
     {
@@ -76,37 +76,36 @@ bool subsetSumToK(int n, int k, vector<int> &arr)
     return dp[n - 1][k];
 }
 
-
-
-
 /////////////////////////////////-------------------------->>>>>>>>>>>space optimze
 
-#include <bits/stdc++.h> 
+#include <bits/stdc++.h>
 
-
-bool subsetSumToK(int n, int k, vector<int> &arr) {
+bool subsetSumToK(int n, int k, vector<int> &arr)
+{
     // Write your code here.
-    vector<bool> prev(k+1,false);
-    
+    vector<bool> prev(k + 1, false);
+
     prev[0] = true;
-    
-    if(arr[0]<=k)
+
+    if (arr[0] <= k)
         prev[arr[0]] = true;
-    
-    for(int ind = 1; ind<n; ind++){
-        vector<bool> cur(k+1,false);
+
+    for (int ind = 1; ind < n; ind++)
+    {
+        vector<bool> cur(k + 1, false);
         cur[0] = true;
-        for(int target= 1; target<=k; target++){
+        for (int target = 1; target <= k; target++)
+        {
             bool notTaken = prev[target];
-    
+
             bool taken = false;
-                if(arr[ind]<=target)
-                    taken = prev[target-arr[ind]];
-        
-            cur[target]= notTaken||taken;
+            if (arr[ind] <= target)
+                taken = prev[target - arr[ind]];
+
+            cur[target] = notTaken || taken;
         }
         prev = cur;
     }
-    
+
     return prev[k];
 }

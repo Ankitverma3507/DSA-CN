@@ -4,7 +4,7 @@ using namespace std;
 
 int f(int n, int m, int col, vector<vector<int>> &matrix, vector<vector<int>> &dp)
 {
-//as in recursion we start from top to down indices so we will not go down,leftdowndiag, rightdowndiag instread we will go up, leftupdiag, rightupdiag
+    // as in recursion we start from top to down indices so we will not go down,leftdowndiag, rightdowndiag instread we will go up, leftupdiag, rightupdiag
     if (m < 0 or m >= col)
         return -1e9;
 

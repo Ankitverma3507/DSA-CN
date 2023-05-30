@@ -97,6 +97,8 @@ int lcs(string s, string t)
 
 
 
+
+
 #include <bits/stdc++.h> 
 using namespace std;
 //////////////////-------------------------->>>>>>>>>>>>>>>space opt
