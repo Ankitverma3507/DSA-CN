@@ -21,16 +21,20 @@ int f(int ind, int buy, int cp, vector<int> &prices, int n)
     }
     return profit;
 }
-int maxProfit(vector<int> &prices, int n)
+int maxProfit(vector<int> &prices, int n,int k)
 {
     // Write your code here.
-    return f(0, 1, 2, prices, n);
+    return f(0, 1, k, prices, n);
 }
 
-#include <bits/stdc++.h>
+
+
+
+#include <bits/stdc++.h> 
 using namespace std;
 ////////////////////-------------------------->>>>>>>>>>>memoization
-int f(int ind, int buy, int cp, vector<int> &prices, int n, vector<vector<vector<int>>> &dp)
+int f(int ind, int buy, int cp, vector<int> &prices, int n,
+ vector<vector<vector<int>>> &dp)
 {
     if (ind == n)
         return 0;
@@ -52,22 +56,27 @@ int f(int ind, int buy, int cp, vector<int> &prices, int n, vector<vector<vector
     }
     return dp[ind][buy][cp] = profit;
 }
-int maxProfit(vector<int> &prices, int n)
+int maximumProfit(vector<int> &prices, int n, int k)
 {
     // Write your code here.
-    vector<vector<vector<int>>> dp(n, vector<vector<int>>(2, vector<int>(3, -1)));
-    return f(0, 1, 2, prices, n, dp);
+    vector<vector<vector<int>>> dp(n, vector<vector<int>>(2, vector<int>(k+1, -1)));
+    return f(0, 1, k, prices, n, dp);
 }
 
-#include <bits/stdc++.h>
+
+
+
+
+
+#include <bits/stdc++.h> 
 using namespace std;
 ////////////////////-------------------------->>>>>>>>>>>tabulation
 
-int maxProfit(vector<int> &prices, int n)
+int maximumProfit(vector<int> &prices, int n, int k)
 {
     // Write your code here.
-    vector<vector<vector<int>>> dp(n + 1,
-                                   vector<vector<int>>(2, vector<int>(3, 0)));
+   vector<vector<vector<int>>> dp(n + 1,
+                                   vector<vector<int>>(2, vector<int>(k+1, 0)));
     for (int ind = 0; ind < n; ind++)
     {
         for (int buy = 0; buy <= 1; buy++)
@@ -78,7 +87,7 @@ int maxProfit(vector<int> &prices, int n)
 
     for (int buy = 0; buy <= 1; buy++)
     {
-        for (int cp = 0; cp <= 2; cp++)
+        for (int cp = 0; cp <= k; cp++)
         {
             dp[n][buy][cp] = 0;
         }
@@ -88,7 +97,7 @@ int maxProfit(vector<int> &prices, int n)
     {
         for (int buy = 0; buy <= 1; buy++)
         {
-            for (int cp = 1; cp <= 2; cp++)
+            for (int cp = 1; cp <= k; cp++)
             {
                 int profit = 0;
                 if (buy)
@@ -106,42 +115,48 @@ int maxProfit(vector<int> &prices, int n)
             }
         }
     }
-    return dp[0][1][2];
+    return dp[0][1][k];
 }
 
-#include <bits/stdc++.h>
+
+
+
+
+
+
+#include <bits/stdc++.h> 
 using namespace std;
-////////////////////-------------------------->>>>>>>>>>>sapace optim
-
-int maxProfit(vector<int> &Arr, int n)
+////////////////////-------------------------->>>>>>>>>>>Space optimisation
+int maximumProfit(vector<int> &prices, int n, int k)
 {
+    // Write your code here.
+   vector<vector<int>> ahead(2, vector<int>(k+1, 0));
 
-    vector<vector<int>> ahead(2, vector<int>(3, 0));
-
-    vector<vector<int>> cur(2, vector<int>(3, 0));
+    vector<vector<int>> cur(2, vector<int>(k+1, 0));
 
     for (int ind = n - 1; ind >= 0; ind--)
     {
         for (int buy = 0; buy <= 1; buy++)
         {
-            for (int cap = 1; cap <= 2; cap++)
+            for (int cap = 1; cap <= k; cap++)
             {
 
                 if (buy == 0)
                 { // We can buy the stock
                     cur[buy][cap] = max(0 + ahead[0][cap],
-                                        -Arr[ind] + ahead[1][cap]);
+                                        -prices[ind] + ahead[1][cap]);
                 }
 
                 if (buy == 1)
                 { // We can sell the stock
                     cur[buy][cap] = max(0 + ahead[1][cap],
-                                        Arr[ind] + ahead[0][cap - 1]);
+                                        prices[ind] + ahead[0][cap - 1]);
                 }
             }
         }
         ahead = cur;
     }
 
-    return ahead[0][2];
+    return ahead[0][k];
 }
+
