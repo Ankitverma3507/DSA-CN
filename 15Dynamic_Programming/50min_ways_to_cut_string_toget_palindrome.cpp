@@ -37,7 +37,7 @@ int palindromePartitioning(string str) {
 
 #include <bits/stdc++.h> 
 using namespace std;
-///////////////////////////////////////-------->>>>>.memoization 
+///////////////////////////////////////-------->>>>>.tabulaiton 
 bool isPalindrome(int i, int j , string &s){
     while(i<j){
         if(s[i] != s[j]) return false;
