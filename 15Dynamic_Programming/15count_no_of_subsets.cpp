@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/////////////////////////////////////////////--------->>>>normal recursion with changes
+/////////////////////////////////////////////--------->>>>normal recursion with changes. here we change the base case beacause if the element of aarr also include 0 and negative no. then we have to modify the base case,
 int findWaysUtil(int ind, int target, vector<int> &arr, vector<vector<int>> &dp)
 {
 

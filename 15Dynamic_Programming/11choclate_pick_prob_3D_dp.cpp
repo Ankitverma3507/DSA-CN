@@ -33,6 +33,9 @@ int maximumChocolates(int r, int c, vector<vector<int>> &grid)
   return f(0, 0, c - 1, grid, r, c);
 }
 
+
+
+
 ///////////////////////////---------------------->>>>>>>>>>>>>memoization
 #include <bits/stdc++.h>
 
@@ -72,15 +75,17 @@ int maximumChocolates(int r, int c, vector<vector<int>> &grid)
   return f(0, 0, c - 1, grid, r, c, dp);
 }
 
-///////////////////////////---------------------->>>>>>>>>>>>>memoization
+
+
+
+///////////////////////////---------------------->>>>>>>>>>>>>tabulation
 
 #include <bits/stdc++.h>
 
 int maximumChocolates(int n, int m, vector<vector<int>> &grid)
 {
   // Write your code here.
-  vector<vector<vector<int>>> dp(n, vector<vector<int>>(m,
-                                                        vector<int>(m, 0)));
+  vector<vector<vector<int>>> dp(n, vector<vector<int>>(m,vector<int>(m, 0)));
 
   for (int j1 = 0; j1 < m; j1++)
   {
