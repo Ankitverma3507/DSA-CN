@@ -21,31 +21,43 @@ int main()
     return 0;
 
     ////////////////tabulation
-    int n = 5;
-    vector<int> dp(n + 1, -1);
+  class Solution {
+public:
 
-    dp[0] = 0;
-    dp[1] = 1;
+    int climbStairs(int n) {
+        if(n<=2) return n;
+        vector<int>dp(n+1);
 
-    for (int i = 2; i <= n; i++)
-    {
-        dp[i] = dp[i - 1] + dp[i - 2];
+        dp[0]= 0;
+        dp[1]= 1;
+        dp[2]= 2;
+
+
+        for(int i=3; i<=n; i++){
+             dp[i]= dp[i-1]+ dp[i-2];
+        }
+        return dp[n];
     }
-    cout << dp[n];
-    return 0;
+};
 
     ///////////////////space optimization
-    int n = 5;
+class Solution {
+public:
 
-    int prev2 = 0;
-    int prev = 1;
-
-    for (int i = 2; i <= n; i++)
-    {
-        int cur_i = prev2 + prev;
-        prev2 = prev;
-        prev = cur_i;
+    int climbStairs(int n) {
+        int prev1=0;
+        int prev2=1;
+        int prev3=2;
+        int curr;
+        if(n==0) return prev1;
+        if(n==1) return prev2;
+        if(n==2) return prev3;
+        for(int i=3; i<=n; i++){
+              curr= prev2+prev3;
+             prev1=prev2;
+             prev2=prev3;
+             prev3=curr;
+        }
+        return curr;
     }
-    cout << prev;
-    return 0;
-}
+};
